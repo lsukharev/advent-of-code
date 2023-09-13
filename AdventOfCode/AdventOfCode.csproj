@@ -4,4 +4,10 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+    <ItemGroup>
+      <None Remove="Solutions\Aoc2015\Day01\input.txt" />
+      <Content Include="Solutions\Aoc2015\Day01\input.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 </Project>
