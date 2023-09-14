@@ -17,14 +17,12 @@ public static class Solution
         var stopwatch = Stopwatch.StartNew();
         int partOne = PartOne(input[0]);
         stopwatch.Stop();
-        Console.WriteLine("part one: {0}", partOne);
-        Console.WriteLine("time elapsed: {0}ms\n", stopwatch.Elapsed.TotalMilliseconds);
+        Console.WriteLine("part one ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partOne);
 
         stopwatch = Stopwatch.StartNew();
         int partTwo = PartTwo(input[0]);
         stopwatch.Stop();
-        Console.WriteLine("part two: {0}", partTwo);
-        Console.WriteLine("time elapsed: {0}ms", stopwatch.Elapsed.TotalMilliseconds);
+        Console.WriteLine("part two ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partTwo);
     }
 
     private static int PartOne(string instructions)
