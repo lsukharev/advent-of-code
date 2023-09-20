@@ -17,5 +17,9 @@
       <Content Include="Solutions\Aoc2015\Day03\input.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="Solutions\Aoc2015\Day04\input.txt" />
+      <Content Include="Solutions\Aoc2015\Day04\input.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 </Project>
