@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace AdventOfCode.Solutions.Aoc2015.Day05;
+
+public static class Solution
+{
+    public static void Run()
+    {
+        string[] input =
+            File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "Solutions", "Aoc2015", "Day05", "input.txt"));
+
+        var stopwatch = Stopwatch.StartNew();
+        int partOne = PartOne(input);
+        stopwatch.Stop();
+        Console.WriteLine("part one ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partOne);
+
+        stopwatch = Stopwatch.StartNew();
+        int partTwo = PartTwo(input);
+        stopwatch.Stop();
+        Console.WriteLine("part two ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partTwo);
+    }
+
+    private static int PartOne(IEnumerable<string> lines)
+    {
+        var threeVowels = new Regex("([aeiou].*){3,}");
+        var doubleLetter = new Regex(@"(\w)\1");
+        var invalidStrings = new Regex("ab|cd|pq|xy");
+
+        return lines.Count(line =>
+            threeVowels.IsMatch(line) && doubleLetter.IsMatch(line) && !invalidStrings.IsMatch(line));
+    }
+
+    private static int PartTwo(IEnumerable<string> lines)
+    {
+        var twoLetterPair = new Regex(@"(\w\w).*\1");
+        var repeatLetter = new Regex(@"(\w)\w\1");
+
+        return lines.Count(line => twoLetterPair.IsMatch(line) && repeatLetter.IsMatch(line));
+    }
+}
