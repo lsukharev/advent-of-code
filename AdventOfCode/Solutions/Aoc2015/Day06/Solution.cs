@@ -1,31 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day06;
 
-public static class Solution
+class Solution : ISolution
 {
-    public static void Run()
-    {
-        string[] input =
-            File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "Solutions", "Aoc2015", "Day06", "input.txt"));
-
-        var stopwatch = Stopwatch.StartNew();
-        int partOne = PartOne(input);
-        stopwatch.Stop();
-        Console.WriteLine("part one ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partOne);
-
-        stopwatch = Stopwatch.StartNew();
-        int partTwo = PartTwo(input);
-        stopwatch.Stop();
-        Console.WriteLine("part two ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partTwo);
-    }
-
-    private static int PartOne(IEnumerable<string> instructions)
+    public object PartOne(IEnumerable<string> instructions)
     {
         return Apply(instructions, new Dictionary<string, Func<int, int>>
         {
@@ -35,7 +17,7 @@ public static class Solution
         });
     }
 
-    private static int PartTwo(IEnumerable<string> instructions)
+    public object PartTwo(IEnumerable<string> instructions)
     {
         return Apply(instructions, new Dictionary<string, Func<int, int>>
         {
@@ -57,14 +39,14 @@ public static class Solution
                 string[] pointOne = match.Groups["pointOne"].Value.Split(',');
                 string[] pointTwo = match.Groups["pointTwo"].Value.Split(',');
 
+                if (!actions.TryGetValue(action, out var doAction))
+                    return grid;
+
                 for (int row = int.Parse(pointOne[1]); row <= int.Parse(pointTwo[1]); row++)
                 {
                     for (int col = int.Parse(pointOne[0]); col <= int.Parse(pointTwo[0]); col++)
                     {
-                        if (actions.TryGetValue(action, out var doAction))
-                        {
-                            grid[row, col] = doAction(grid[row, col]);
-                        }
+                        grid[row, col] = doAction(grid[row, col]);
                     }
                 }
 

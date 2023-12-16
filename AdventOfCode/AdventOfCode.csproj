@@ -38,4 +38,7 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    </ItemGroup>
 </Project>

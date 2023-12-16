@@ -1,47 +1,42 @@
-using System;
-using System.Diagnostics;
-using System.IO;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day04;
 
-public static class Solution
+class Solution : ISolution
 {
-    public static void Run()
+    public object PartOne(IEnumerable<string> input)
     {
-        string[] input =
-            File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "Solutions", "Aoc2015", "Day04", "input.txt"));
-
-        var stopwatch = Stopwatch.StartNew();
-        int partOne = PartOne(input[0]);
-        stopwatch.Stop();
-        Console.WriteLine("part one ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partOne);
-
-        stopwatch = Stopwatch.StartNew();
-        int partTwo = PartTwo(input[0]);
-        stopwatch.Stop();
-        Console.WriteLine("part two ({0} ms): {1}", stopwatch.Elapsed.TotalMilliseconds, partTwo);
+        return FindHash(input.First(), "00000");
     }
 
-    private static int PartOne(string key) => FindHash(key, "00000");
-
-    private static int PartTwo(string key) => FindHash(key, "000000");
+    public object PartTwo(IEnumerable<string> input)
+    {
+        return FindHash(input.First(), "000000");
+    }
 
     private static int FindHash(string key, string prefix)
     {
-        foreach (int number in Enumerable.Range(0, int.MaxValue))
-        {
-            byte[] bytes = MD5.HashData(Encoding.ASCII.GetBytes(key + number));
-            string hash = string.Join(string.Empty, bytes.Select(b => b.ToString("X2")));
+        var bag = new ConcurrentBag<int>();
 
-            if (hash.StartsWith(prefix))
+        Parallel.ForEach(
+            Enumerable.Range(0, int.MaxValue),
+            (num, state) =>
             {
-                return number;
-            }
-        }
+                byte[] bytes = MD5.HashData(Encoding.ASCII.GetBytes(key + num));
+                string hash = string.Join("", bytes.Select(b => b.ToString("X2")));
 
-        return -1;
+                if (!hash.StartsWith(prefix))
+                    return;
+
+                bag.Add(num);
+                state.Stop();
+            });
+
+        return bag.First();
     }
 }
