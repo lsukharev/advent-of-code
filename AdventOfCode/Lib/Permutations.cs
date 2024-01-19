@@ -6,8 +6,7 @@ namespace AdventOfCode.Lib;
 static class Permutations
 {
     /// <summary>
-    /// Generates all possible permutations of the <paramref name="source"/>
-    /// collection.
+    /// Generates all possible permutations of the <paramref name="source"/> collection.
     /// </summary>
     public static IEnumerable<T[]> Generate<T>(IEnumerable<T> source)
     {
