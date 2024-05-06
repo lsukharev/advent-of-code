@@ -23,7 +23,7 @@ public class Solution : ISolution
         return input
             .Aggregate(new List<Reindeer>(), (reindeer, line) =>
             {
-                var match = Regex.Match(line,
+                Match match = Regex.Match(line,
                     @"(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.");
                 int speed = int.Parse(match.Groups[2].Value);
                 int flightTime = int.Parse(match.Groups[3].Value);

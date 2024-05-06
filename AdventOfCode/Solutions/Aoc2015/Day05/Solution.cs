@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day05;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> lines)
     {

@@ -9,7 +9,7 @@ using AdventOfCode.Solutions;
 
 namespace AdventOfCode;
 
-class Options
+public class Options
 {
     [Option('y', "year", Required = true, HelpText = "Set the yearly event")]
     public string Year { get; }
@@ -24,7 +24,7 @@ class Options
     }
 }
 
-class Program
+public class Program
 {
     public static void Main(string[] args)
     {
@@ -35,7 +35,7 @@ class Program
                 var targetYear = $"Aoc{o.Year}";
                 var targetDay = $"Day{o.Day}";
 
-                var targetSolution = Assembly.GetEntryAssembly()!.GetTypes()
+                Type targetSolution = Assembly.GetEntryAssembly()!.GetTypes()
                     .Where(t => t.IsClass && t.GetInterface(nameof(ISolution)) is not null)
                     .First(s =>
                     {

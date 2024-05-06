@@ -5,17 +5,17 @@ using System.Text.Json;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day12;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> input)
     {
-        using var doc = JsonDocument.Parse(input.First());
+        using JsonDocument doc = JsonDocument.Parse(input.First());
         return SelectNumbers(doc.RootElement).Sum();
     }
 
     public object PartTwo(IEnumerable<string> input)
     {
-        using var doc = JsonDocument.Parse(input.First());
+        using JsonDocument doc = JsonDocument.Parse(input.First());
         return SelectNumbers(doc.RootElement, IsObjectWithRedValue).Sum();
 
         bool IsObjectWithRedValue(JsonElement e) =>
@@ -26,9 +26,7 @@ class Solution : ISolution
     private static IEnumerable<int> SelectNumbers(JsonElement element, Func<JsonElement, bool>? ignore = null)
     {
         if (ignore is not null && ignore(element))
-        {
             yield break;
-        }
 
         if (element.ValueKind == JsonValueKind.Object)
         {
@@ -47,8 +45,6 @@ class Solution : ISolution
         }
 
         if (element.ValueKind == JsonValueKind.Number)
-        {
             yield return element.GetInt32();
-        }
     }
 }

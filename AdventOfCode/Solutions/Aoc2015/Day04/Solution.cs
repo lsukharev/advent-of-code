@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day04;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> input)
     {

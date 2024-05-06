@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day10;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> input)
     {

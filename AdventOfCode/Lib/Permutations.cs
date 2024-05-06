@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace AdventOfCode.Lib;
 
-static class Permutations
+public static class Permutations
 {
     /// <summary>
     /// Generates all possible permutations of the <paramref name="source"/> collection.
     /// </summary>
     public static IEnumerable<T[]> Generate<T>(IEnumerable<T> source)
     {
-        var copy = source.ToArray();
+        T[] copy = source.ToArray();
         return Generate(copy, copy.Length);
     }
 
@@ -27,7 +27,7 @@ static class Permutations
         }
         else
         {
-            foreach (var permutation in Generate(source, size - 1))
+            foreach (T[] permutation in Generate(source, size - 1))
             {
                 yield return permutation;
             }
@@ -43,7 +43,7 @@ static class Permutations
                     (source[0], source[size - 1]) = (source[size - 1], source[0]);
                 }
 
-                foreach (var permutation in Generate(source, size - 1))
+                foreach (T[] permutation in Generate(source, size - 1))
                 {
                     yield return permutation;
                 }

@@ -5,7 +5,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day09;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> input)
     {
@@ -28,7 +28,7 @@ class Solution : ISolution
 
         foreach (string line in input)
         {
-            var match = Regex.Match(line, @"(\w+) to (\w+) = (\d+)");
+            Match match = Regex.Match(line, @"(\w+) to (\w+) = (\d+)");
             string from = match.Groups[1].Value;
             string to = match.Groups[2].Value;
             int distance = int.Parse(match.Groups[3].Value);

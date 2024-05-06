@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day06;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> instructions)
     {
@@ -27,19 +27,19 @@ class Solution : ISolution
         });
     }
 
-    private static int Apply(IEnumerable<string> instructions, IDictionary<string, Func<int, int>> actions)
+    private static int Apply(IEnumerable<string> instructions, Dictionary<string, Func<int, int>> actions)
     {
         return instructions
             .Aggregate(new int[1000, 1000], (grid, instruction) =>
             {
-                var match = Regex.Match(instruction,
+                Match match = Regex.Match(instruction,
                     @"(?<action>.*) (?<pointOne>\d+,\d+) through (?<pointTwo>\d+,\d+)");
 
                 string action = match.Groups["action"].Value;
                 string[] pointOne = match.Groups["pointOne"].Value.Split(',');
                 string[] pointTwo = match.Groups["pointTwo"].Value.Split(',');
 
-                if (!actions.TryGetValue(action, out var doAction))
+                if (!actions.TryGetValue(action, out Func<int, int>? doAction))
                     return grid;
 
                 for (int row = int.Parse(pointOne[1]); row <= int.Parse(pointTwo[1]); row++)

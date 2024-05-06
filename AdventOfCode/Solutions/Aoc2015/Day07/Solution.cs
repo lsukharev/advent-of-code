@@ -5,27 +5,28 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day07;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
+    private class Circuit : Dictionary<string, Func<int>>;
+
     public object PartOne(IEnumerable<string> instructions)
     {
-        var circuit = MakeCircuit(instructions);
+        Circuit circuit = MakeCircuit(instructions);
         return GetSignal("a", circuit);
     }
 
     public object PartTwo(IEnumerable<string> input)
     {
         string[] instructions = input.ToArray();
-        var circuit = MakeCircuit(instructions.Append($"{PartOne(instructions)} -> b"));
+        Circuit circuit = MakeCircuit(instructions.Append($"{PartOne(instructions)} -> b"));
         return GetSignal("a", circuit);
     }
 
-    private static Dictionary<string, Func<int>> MakeCircuit(IEnumerable<string> instructions)
+    private static Circuit MakeCircuit(IEnumerable<string> instructions)
     {
-        return instructions.Aggregate(new Dictionary<string, Func<int>>(), (circuit, instruction) =>
+        return instructions.Aggregate(new Circuit(), (circuit, instruction) =>
         {
-            var match = Regex.Match(
-                instruction,
+            Match match = Regex.Match(instruction,
                 @"(?<source>NOT \w+|\w+ (AND|OR|LSHIFT|RSHIFT) \w+|\w+) -> (?<target>\w+)");
 
              if (!match.Success)
@@ -75,12 +76,12 @@ class Solution : ISolution
         });
     }
 
-    private static int GetSignal(string wire, IReadOnlyDictionary<string, Func<int>> circuit)
+    private static int GetSignal(string wire, Circuit circuit)
     {
          if (int.TryParse(wire, out int v))
              return v;
 
-         if (circuit.TryGetValue(wire, out var cv))
+         if (circuit.TryGetValue(wire, out Func<int>? cv))
              return cv();
 
          throw new ArgumentException($"Unable to get signal from wire: {wire}");

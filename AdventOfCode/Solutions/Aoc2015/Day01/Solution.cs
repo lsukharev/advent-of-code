@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day01;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> input)
     {

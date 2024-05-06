@@ -9,4 +9,8 @@ bin/
 obj/
 
 # JetBrains Rider
-.idea/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/shelf/
+.idea/dictionaries/
+.idea/httpRequests/

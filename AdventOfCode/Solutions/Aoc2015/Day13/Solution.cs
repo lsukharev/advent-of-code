@@ -5,7 +5,7 @@ using AdventOfCode.Lib;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day13;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     public object PartOne(IEnumerable<string> input)
     {
@@ -24,7 +24,7 @@ class Solution : ISolution
 
         foreach (string line in input)
         {
-            var match = Regex.Match(line, @"(\w+) would (gain|lose) (\d+) happiness units by sitting next to (\w+).");
+            Match match = Regex.Match(line, @"(\w+) would (gain|lose) (\d+) happiness units by sitting next to (\w+).");
             string personA = match.Groups[1].Value;
             string personB = match.Groups[4].Value;
             bool gain = match.Groups[2].Value == "gain";

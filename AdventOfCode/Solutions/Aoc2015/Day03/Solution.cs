@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AdventOfCode.Solutions.Aoc2015.Day03;
 
-class Solution : ISolution
+public class Solution : ISolution
 {
     private record struct Point(int X, int Y);
 

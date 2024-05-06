@@ -2,7 +2,7 @@
 
 namespace AdventOfCode.Solutions;
 
-interface ISolution
+public interface ISolution
 {
     object PartOne(IEnumerable<string> input);
 
